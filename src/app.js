@@ -82,162 +82,227 @@ function newLayer(type, o = {}) {
 /* ---------------- presets ---------------- */
 /* Built-in textures: the library a fresh page starts with (and what Reset restores). */
 const BUILTIN = [
-  ['Oil spill', 'Chrome swirls printed as a CMY halftone', [
-    ['liqmetal', { scale: 0.544, flow: 0.39, bands: 3.78, disp: 0.519, hard: 2.202, tint: '#9fb2d9', dark: '#3b0f42', speed: 0.54, seed: 89 }, 0, 1, true],
-    ['halftone', { size: 14.5, angle: 55.1, mode: 1, soft: 0.76, ink: '#1b0b25', paper: '#d1f4b0' }, 0, 1, true],
+  ["Void", "A chrome crystal drifting through violet liquid", [
+    ["concrete", {"scale": 3.373, "rough": 0.137, "pores": 0.089, "stains": 0.788, "color": "#c112e2", "seed": 23}, 0, 1, true],
+    ["gasbands", {"bands": 6.3, "turb": 1.827, "shear": 0.784, "storms": 0.832, "flash": 0.482, "speed": 0.14, "seed": 49, "pal": 3, "ca": "#0b0d28", "cb": "#9432da", "cc": "#f7efde", "shift": 0.04, "contrast": 1.06, "cycle": 0}, 4, 0.54, true],
+    ["object3d", {"shape": 5, "lastShape": 0, "anim": 0, "clip": 0, "arep": 1, "mat": 2, "color": "#e8e4dc", "size": 1.217, "x": 0, "y": 0, "rotX": 134, "rotY": -22.1, "rotZ": 64.1, "motion": 1, "cycles": 2, "spinX": 0, "spinY": 0, "spinZ": 0, "wobble": 0.056, "wscale": 3.42, "light": 249.8, "shine": 1.336, "rim": 0.56, "ior": 0.124, "repeat": 5.86, "shadow": 0.36}, 0, 1, true],
+    ["chromemap", {"bands": 5.62, "hard": 1.079, "disp": 0.079, "soft": 0.817, "tint": "#a3b4d8", "dark": "#300e2c", "speed": 0.76}, 0, 1, true],
+    ["sharpen", {"amt": 0.77, "rad": 3.62}, 0, 1, true],
+    ["adjust", {"bri": -0.028, "con": 0.829, "sat": 0.915, "hue": 77.3, "temp": -0.602, "gamma": 0.997, "hs": 0}, 0, 1, true],
+    ["grain", {"amt": 0.078, "size": 1.2, "color": 0, "anim": 1}, 0, 1, true],
   ]],
-  ['Truchet', 'Interlocking arcs in red and mint', [
-    ['truchet', { scale: 4.73, width: 0.346, style: 1, speed: 0.18, seed: 27, pal: 0, ca: '#1a0b25', cb: '#e7343b', cc: '#bfe5bb', shift: 0.27, contrast: 0.7, cycle: 0 }, 0, 1, true],
+  ["Oil spill", "Chrome swirls printed as a CMY halftone", [
+    ["liqmetal", {"scale": 0.544, "flow": 0.39, "bands": 3.78, "disp": 0.519, "hard": 2.202, "tint": "#9fb2d9", "dark": "#3b0f42", "speed": 0.54, "seed": 89}, 0, 1, true],
+    ["halftone", {"size": 14.5, "angle": 55.1, "mode": 1, "soft": 0.76, "ink": "#1b0b25", "paper": "#d1f4b0"}, 0, 1, true],
   ]],
-  ['Ink', 'Twisted ink dithered onto warm paper', [
-    ['warp', { scale: 1.15, warp: 3.29, oct: 5, bands: 0.97, mixq: 0.5, speed: 0.35, seed: 2, pal: 0, ca: '#17062e', cb: '#d73930', cc: '#f1f7dc', shift: 0.04, contrast: 1.61, cycle: 0 }, 0, 1, true],
-    ['twirl', { strength: 3.75, radius: 1.125, cx: 0.15, cy: 0.06, speed: 0.41 }, 0, 1, true],
-    ['sharpen', { amt: 0.63, rad: 2.92 }, 0, 1, true],
-    ['dither', { levels: 2, px: 1, mat: 2, mono: 1, dark: '#000000', light: '#f4e0cb' }, 0, 1, true],
-    ['grain', { amt: 0.072, size: 1.2, color: 0, anim: 1 }, 0, 1, true],
+  ["Iridescent", "Soft holographic folds with a pearlescent shimmer", [
+    ["holo", {"scale": 0.982, "crinkle": 0.865, "bands": 5.365, "sat": 0.194, "sparkle": 0.476, "speed": 0.24, "seed": 21}, 0, 1, true],
+    ["lens", {"distort": -0.944, "zoom": 1.914, "chroma": 0.916, "blur": 0.596, "vign": 0}, 0, 1, true],
+    ["grain", {"amt": 0.107, "size": 1.2, "color": 0, "anim": 1}, 0, 1, true],
   ]],
-  ['Wave', 'Layered color swells', [
-    ['studio', { style: 1, c1: '#1776e0', c2: '#1776e0', c3: '#1776e0', c4: '#1776e0', scale: 0.657, angle: 18.3, distort: 1.62, soft: 0.286, sheen: 0.037, grain: 0.161, speed: 0.54, seed: 60 }, 0, 1, true],
+  ["Ink", "Twisted ink dithered onto warm paper", [
+    ["warp", {"scale": 1.15, "warp": 3.29, "oct": 5, "bands": 0.97, "mixq": 0.5, "speed": 0.35, "seed": 2, "pal": 0, "ca": "#17062e", "cb": "#d73930", "cc": "#f1f7dc", "shift": 0.04, "contrast": 1.61, "cycle": 0}, 0, 1, true],
+    ["twirl", {"strength": 3.75, "radius": 1.125, "cx": 0.15, "cy": 0.06, "speed": 0.41}, 0, 1, true],
+    ["sharpen", {"amt": 0.63, "rad": 2.92}, 0, 1, true],
+    ["dither", {"levels": 2, "px": 1, "mat": 2, "mono": 1, "dark": "#000000", "light": "#f4e0cb"}, 0, 1, true],
+    ["grain", {"amt": 0.072, "size": 1.2, "color": 0, "anim": 1}, 0, 1, true],
   ]],
-  ['Cells', 'Glowing cells behind reeded glass', [
-    ['voronoi', { scale: 8.22, jitter: 0.28, mode: 0, edge: 0.109, speed: 0.51, seed: 23, pal: 7, ca: '#06182a', cb: '#d634e6', cc: '#f1e5b4', shift: 0.59, contrast: 1.58, cycle: 0 }, 0, 1, true],
-    ['fluted', { count: 65.9, angle: 85.5, dist: 0.519, shape: 0, chroma: 0.744, shadow: 0.623, shine: 0.046, blur: 0.359 }, 0, 1, true],
-    ['halftone', { size: 16.5, angle: 34.4, mode: 0, soft: 0.67, ink: '#2f220f', paper: '#d0ddf5' }, 0, 1, true],
-    ['adjust', { bri: -0.084, con: 1.325, sat: 1.38, hue: -1.3, temp: -0.395, gamma: 0.785, hs: 0 }, 0, 1, true],
+  ["Ancient sun", "A grainy sun with an iridescent sheen", [
+    ["graingrad", {"shape": 2, "scale": 1.077, "soft": 0.682, "grain": 0.333, "gsize": 1.88, "speed": 0.4, "seed": 62, "pal": 7, "ca": "#34092f", "cb": "#ddcd37", "cc": "#d1f9cb", "shift": -0.19, "contrast": 1.47, "cycle": 0}, 0, 1, true],
+    ["iridescence", {"amount": 0.36, "freq": 2.99, "hue": 0.298, "edge": 1.395, "speed": 0.56}, 0, 1, true],
+    ["crt", {"dens": 3.97, "int": 0.96, "mask": 0.423, "curve": 0.244, "roll": 2.59}, 0, 1, false],
+    ["glow", {"th": 0.605, "int": 0.53, "radius": 33.3, "tint": "#ffffff"}, 0, 1, true],
+    ["grain", {"amt": 0.051, "size": 1.2, "color": 0, "anim": 1}, 0, 1, true],
   ]],
-  ['Ancient sun', 'A grainy sun with an iridescent sheen', [
-    ['graingrad', { shape: 2, scale: 1.077, soft: 0.682, grain: 0.333, gsize: 1.88, speed: 0.4, seed: 62, pal: 7, ca: '#34092f', cb: '#ddcd37', cc: '#d1f9cb', shift: -0.19, contrast: 1.47, cycle: 0 }, 0, 1, true],
-    ['iridescence', { amount: 0.36, freq: 2.99, hue: 0.298, edge: 1.395, speed: 0.56 }, 0, 1, true],
-    ['crt', { dens: 3.97, int: 0.96, mask: 0.423, curve: 0.244, roll: 2.59 }, 0, 1, false],
-    ['glow', { th: 0.605, int: 0.53, radius: 33.3, tint: '#ffffff' }, 0, 1, true],
-    ['grain', { amt: 0.051, size: 1.2, color: 0, anim: 1 }, 0, 1, true],
+  ["Truchet", "Interlocking arcs in red and mint", [
+    ["truchet", {"scale": 4.73, "width": 0.346, "style": 1, "speed": 0.18, "seed": 27, "pal": 0, "ca": "#1a0b25", "cb": "#e7343b", "cc": "#bfe5bb", "shift": 0.27, "contrast": 0.7, "cycle": 0}, 0, 1, true],
   ]],
-  ['Game water', 'Pixel-art water with caustic glints', [
-    ['meshgrad', { c1: '#a70cdc', c2: '#a70cdc', c3: '#a70cdc', c4: '#a70cdc', distort: 1.074, swirl: -1.919, soft: 2.948, grain: 0.927, speed: 0.11, seed: 69 }, 0, 1, true],
-    ['gradmap', { pal: 0, ca: '#200a5c', cb: '#ffffff', cc: '#add8eb', shift: -0.21, contrast: 0.75, cycle: 0 }, 0, 1, true],
-    ['water', { scale: 2.06, height: 0.386, chop: 0.618, dir: 99.5, caustics: 0.708, glints: 0.722, depth: 0.119, clarity: 0.563, tint: '#1a9bc4', speed: 0.8, seed: 71 }, 0, 1, true],
-    ['pixelate', { size: 23.2 }, 0, 1, true],
-    ['vignette', { amt: 0.422, size: 0.7, soft: 0.6, round: 0.5, color: '#000000' }, 0, 1, true],
+  ["Fullmetal", "Rippling chrome stretched through ridged glass", [
+    ["satin", {"folds": 4.06, "angle": 91, "flow": 0.249, "sheen": 0.329, "tight": 46.7, "color": "#bfb135", "shade": "#bfb135", "speed": 0.79, "seed": 70}, 0, 1, true],
+    ["concrete", {"scale": 4.32, "rough": 0.726, "pores": 0.318, "stains": 0.941, "color": "#4595cf", "seed": 90}, 1, 0.4, true],
+    ["fluted", {"count": 20.9, "angle": 162.4, "dist": 0.817, "shape": 2, "chroma": 0.961, "shadow": 0.313, "shine": 0.489, "blur": 0.939}, 0, 1, true],
+    ["lens", {"distort": 0.364, "zoom": 1.839, "chroma": 0.666, "blur": 0.741, "vign": 0.123}, 0, 1, true],
+    ["chromemap", {"bands": 3.28, "hard": 1.961, "disp": 0.13, "soft": 0.58, "tint": "#a3b4d8", "dark": "#270b19", "speed": 0.28}, 0, 1, true],
+    ["grain", {"amt": 0.105, "size": 1.2, "color": 0, "anim": 1}, 0, 1, true],
   ]],
-  ['Space runes', 'Glowing contour glyphs from a stepped ripple', [
-    ['graingrad', { shape: 3, scale: 1.557, soft: 0.393, grain: 0.194, gsize: 4.41, speed: 0.41, seed: 59, pal: 4, ca: '#450a10', cb: '#e7d135', cc: '#a5f3f5', shift: -0.49, contrast: 1.45, cycle: 0 }, 0, 1, true],
-    ['posterize', { levels: 7, gamma: 2.41 }, 0, 1, true],
-    ['transform', { rot: -165.1, zoom: 3.23, ox: -0.952, oy: 0.976, sx: 0, sy: 0, spin: 0, wrap: 1 }, 0, 1, true],
-    ['edges', { str: 2.73, thick: 3.88, mode: 0 }, 0, 1, true],
-    ['grain', { amt: 0.069, size: 1.2, color: 0, anim: 1 }, 0, 1, true],
+  ["Vinyl", "Warm pixel patterns warped into restless grooves", [
+    ["neuro", {"scale": 7.86, "detail": 6, "bright": 1.984, "sharp": 3.91, "speed": 1.1, "seed": 45, "pal": 0, "ca": "#000000", "cb": "#962c2c", "cc": "#fffbcc", "shift": 0.24, "contrast": 0.75, "cycle": 0}, 0, 1, true],
+    ["pixelate", {"size": 30.4}, 0, 1, true],
+    ["wave", {"amp": 44.1, "freq": 25.65, "dir": 3, "speed": -1.19}, 0, 1, true],
+    ["grain", {"amt": 0.107, "size": 1.2, "color": 0, "anim": 1}, 0, 1, true],
   ]],
-  ['Universe', 'Holographic dust through a wide lens', [
-    ['holo', { scale: 4.831, crinkle: 0.333, bands: 0.386, sat: 0.711, sparkle: 0.688, speed: 0.38, seed: 15 }, 0, 1, true],
-    ['gradmap', { pal: 5, ca: '#330d46', cb: '#e7da23', cc: '#baf2b6', shift: -0.15, contrast: 0.83, cycle: 0 }, 0, 1, true],
-    ['chroma', { amount: 6.3, radial: 0, angle: 210 }, 0, 1, true],
-    ['lens', { distort: -0.928, zoom: 0.638, chroma: 0.88, blur: 0.251, vign: 0.707 }, 0, 1, true],
-    ['grain', { amt: 0.064, size: 1.2, color: 0, anim: 1 }, 0, 1, true],
+  ["Pulse", "Grainy color ripples broken into dithered pixels", [
+    ["graingrad", {"shape": 3, "scale": 0.947, "soft": 0.841, "grain": 0.702, "gsize": 3.42, "speed": 0.34, "seed": 58, "pal": 5, "ca": "#0b2008", "cb": "#37a5ef", "cc": "#e3bbf2", "shift": 0.92, "contrast": 1.13, "cycle": 0}, 0, 1, true],
+    ["pixelate", {"size": 25.2}, 0, 1, true],
+    ["chroma", {"amount": 10.7, "radial": 1, "angle": 103}, 0, 1, true],
+    ["dither", {"levels": 4, "px": 2.91, "mat": 5, "mono": 0, "dark": "#253409", "light": "#eae1f1"}, 0, 1, true],
+    ["grain", {"amt": 0.046, "size": 1.2, "color": 0, "anim": 1}, 0, 1, true],
   ]],
-  ['Molten dusk', 'Folding lava with a hot bloom', [
-    ['warp', { scale: 1.6, warp: 3.8, oct: 6, mixq: 0.35, speed: 0.12, pal: 3, contrast: 1.15 }],
-    ['glow', { th: 0.62, int: 0.9, radius: 40 }],
-    ['chroma', { amount: 5, radial: 1 }],
-    ['grain', { amt: 0.09 }],
-    ['vignette', { amt: 0.55, size: 0.75, soft: 0.8 }],
+  ["Neurons", "Fine luminous filaments weaving through the dark", [
+    ["filaments", {"mode": 0, "scale": 3.33, "width": 0.041, "layers": 3, "core": 0.766, "speed": 0.67, "seed": 65, "pal": 0, "ca": "#03030c", "cb": "#b3d55d", "cc": "#c7caea", "shift": -0.36, "contrast": 1.13, "cycle": 0}, 0, 1, true],
+    ["sharpen", {"amt": 1.55, "rad": 2.29}, 0, 1, true],
+    ["grain", {"amt": 0.061, "size": 1.2, "color": 0, "anim": 1}, 0, 1, true],
   ]],
-  ['Mesh gradient', 'Four colors flowing into each other', [
-    ['meshgrad', { c1: '#0d1b4d', c2: '#6b3cff', c3: '#ff6a88', c4: '#ffd3a1', distort: 0.7, swirl: 0.5, soft: 1.3, speed: 0.3 }],
-    ['grain', { amt: 0.05 }],
+  ["Microscope", "Warped cellular forms traced in sharp contours", [
+    ["graingrad", {"shape": 4, "scale": 0.428, "soft": 0.678, "grain": 0.926, "gsize": 4.61, "speed": 0.69, "seed": 49, "pal": 5, "ca": "#1b1f0b", "cb": "#328dc6", "cc": "#c5c3ed", "shift": 0.04, "contrast": 1.77, "cycle": 0}, 0, 1, true],
+    ["object3d", {"shape": 0, "lastShape": 0, "anim": 0, "clip": 0, "arep": 1, "mat": 3, "color": "#ff9fb8", "size": 1.21, "x": 0, "y": 0, "rotX": -22.1, "rotY": 36.3, "rotZ": -57.2, "motion": 7, "cycles": 1, "spinX": 0, "spinY": 0, "spinZ": 0, "wobble": 0.308, "wscale": 3.47, "light": 124.7, "shine": 0.25, "rim": 1.827, "ior": 0.244, "repeat": 1.76, "shadow": 0.308}, 0, 1, true],
+    ["polar", {"mode": 0, "zoom": 1.13, "rep": 3, "spin": 0.38}, 0, 1, true],
+    ["transform", {"rot": -162.5, "zoom": 1.51, "ox": -0.678, "oy": 0.947, "sx": 0, "sy": 0, "spin": 0, "wrap": 1}, 0, 1, true],
+    ["edges", {"str": 2.55, "thick": 3.01, "mode": 0}, 0, 1, true],
   ]],
-  ['Aurora', 'Curtains of light over a night sky', [
-    ['noise', { scale: 1.4, oct: 4, lac: 2, gain: 0.5, warp: 2.51, ridged: 0, angle: 90, speed: 0.13, seed: 0, pal: 0, ca: '#01040d', cb: '#0e9c82', cc: '#c6ffdc', shift: 0, contrast: 1.5, cycle: 0 }, 0, 1, true],
-    ['wave', { amp: 35.1, freq: 1.6, dir: 1, speed: 0.4 }, 0, 1, true],
-    ['glow', { th: 0.5, int: 0.42, radius: 55, tint: '#9dffd6' }, 0, 1, true],
-    ['adjust', { bri: 0, con: 1, sat: 1, hue: 0, temp: 0, gamma: 1, hs: 1 }, 0, 1, true],
+  ["Amoeba", "A wobbling glass knot over grainy yellow silk", [
+    ["studio", {"style": 0, "c1": "#e3e419", "c2": "#e3e419", "c3": "#e3e419", "c4": "#e3e419", "scale": 1.519, "angle": 124.8, "distort": 0.65, "soft": 0.846, "sheen": 0.4, "grain": 0.52, "speed": 0.59, "seed": 6}, 0, 1, true],
+    ["object3d", {"shape": 3, "lastShape": 0, "anim": 1, "clip": 0, "arep": 1, "mat": 3, "color": "#a8d8ff", "size": 0.995, "x": 0, "y": 0, "rotX": 98.7, "rotY": -100.4, "rotZ": 91.5, "motion": 6, "cycles": 1, "spinX": 0, "spinY": 0, "spinZ": 0, "wobble": 0.37, "wscale": 5.54, "light": 13.4, "shine": 0.146, "rim": 0.132, "ior": 0.775, "repeat": 3.86, "shadow": 0.127}, 0, 1, true],
   ]],
-  ['Neuro noise', 'Glowing, vein-like sine networks', [
-    ['neuro', { scale: 5, detail: 12, bright: 1.35, sharp: 3.2, speed: 0.5, pal: 0, ca: '#000000', cb: '#2f47ff', cc: '#eef2ff' }],
-    ['glow', { th: 0.55, int: 0.7, radius: 30 }],
-    ['vignette', { amt: 0.4 }],
+  ["Wave", "Layered color swells", [
+    ["studio", {"style": 1, "c1": "#1776e0", "c2": "#1776e0", "c3": "#1776e0", "c4": "#1776e0", "scale": 0.657, "angle": 18.3, "distort": 1.62, "soft": 0.286, "sheen": 0.037, "grain": 0.161, "speed": 0.54, "seed": 60}, 0, 1, true],
   ]],
-  ['Grain gradient', 'A soft wave dissolved in print grain', [
-    ['graingrad', { shape: 0, scale: 1, soft: 0.2, grain: 0.35, gsize: 1.4, speed: 0.3, pal: 0, ca: '#0f1636', cb: '#e2546e', cc: '#ffd6a0' }],
+  ["Cells", "Glowing cells behind reeded glass", [
+    ["voronoi", {"scale": 8.22, "jitter": 0.28, "mode": 0, "edge": 0.109, "speed": 0.51, "seed": 23, "pal": 7, "ca": "#06182a", "cb": "#d634e6", "cc": "#f1e5b4", "shift": 0.59, "contrast": 1.58, "cycle": 0}, 0, 1, true],
+    ["fluted", {"count": 65.9, "angle": 85.5, "dist": 0.519, "shape": 0, "chroma": 0.744, "shadow": 0.623, "shine": 0.046, "blur": 0.359}, 0, 1, true],
+    ["halftone", {"size": 16.5, "angle": 34.4, "mode": 0, "soft": 0.67, "ink": "#2f220f", "paper": "#d0ddf5"}, 0, 1, true],
+    ["adjust", {"bri": -0.084, "con": 1.325, "sat": 1.38, "hue": -1.3, "temp": -0.395, "gamma": 0.785, "hs": 0}, 0, 1, true],
   ]],
-  ['Marbled paper', 'Suminagashi ink rings', [
-    ['warp', { scale: 0.9, warp: 3.2, oct: 3, bands: 6, mixq: 0.15, speed: 0.06, pal: 8, contrast: 1.1 }],
-    ['invert', { mode: 1, th: 0.5, soft: 0.12 }],
-    ['gradmap', { ca: '#17213f', cb: '#5a6a8e', cc: '#efe7d6' }],
-    ['grain', { amt: 0.1, size: 1.6 }],
-    ['vignette', { amt: 0.35, color: '#6e5b3e', soft: 1 }],
+  ["Static noise", "Halftone noise glowing in thermal colors", [
+    ["simplex", {"scale": 7.68, "oct": 4, "steps": 4, "soft": 0.035, "warp": 1.907, "speed": 0.56, "seed": 41, "pal": 3, "ca": "#340f1a", "cb": "#c6db39", "cc": "#c1eddd", "shift": -0.64, "contrast": 1.69, "cycle": 0}, 0, 1, true],
+    ["halftone", {"size": 14.1, "angle": 58.2, "mode": 0, "soft": 0.34, "ink": "#221236", "paper": "#dbeec7"}, 0, 1, true],
+    ["edges", {"str": 2.2, "thick": 4.3, "mode": 2}, 0, 1, true],
+    ["heatmap", {"con": 2.241, "off": -0.263, "bands": 13.9, "lines": 0.439, "pulse": 0.573}, 0, 1, true],
   ]],
-  ['Thermal', 'Heat camera, ironbow palette', [
-    ['noise', { scale: 1.8, oct: 5, warp: 1.6, speed: 0.25, pal: 8, contrast: 1.7 }],
-    ['blur', { radius: 8 }],
-    ['gradmap', { ca: '#0a0020', cb: '#d0342c', cc: '#fff1a8', contrast: 1.3 }],
-    ['posterize', { levels: 12 }],
-    ['crt', { dens: 4, int: 0.22, mask: 0.08, curve: 0, roll: 0.3 }],
-    ['grain', { amt: 0.08 }],
+  ["Game water", "Pixel-art water with caustic glints", [
+    ["meshgrad", {"c1": "#a70cdc", "c2": "#a70cdc", "c3": "#a70cdc", "c4": "#a70cdc", "distort": 1.074, "swirl": -1.919, "soft": 2.948, "grain": 0.927, "speed": 0.11, "seed": 69}, 0, 1, true],
+    ["gradmap", {"pal": 0, "ca": "#200a5c", "cb": "#ffffff", "cc": "#add8eb", "shift": -0.21, "contrast": 0.75, "cycle": 0}, 0, 1, true],
+    ["water", {"scale": 2.06, "height": 0.386, "chop": 0.618, "dir": 99.5, "caustics": 0.708, "glints": 0.722, "depth": 0.119, "clarity": 0.563, "tint": "#1a9bc4", "speed": 0.8, "seed": 71}, 0, 1, true],
+    ["pixelate", {"size": 23.2}, 0, 1, true],
+    ["vignette", {"amt": 0.422, "size": 0.7, "soft": 0.6, "round": 0.5, "color": "#000000"}, 0, 1, true],
   ]],
-  ['Simplex', 'Stepped simplex contours in cool tones', [
-    ['simplex', { scale: 1.6, oct: 3, steps: 7, soft: 0.12, warp: 0.5, speed: 0.25, pal: 0, ca: '#0c1a2b', cb: '#3f7fa8', cc: '#e8f3f2' }],
-    ['grain', { amt: 0.04 }],
+  ["Space runes", "Glowing contour glyphs from a stepped ripple", [
+    ["graingrad", {"shape": 3, "scale": 1.557, "soft": 0.393, "grain": 0.194, "gsize": 4.41, "speed": 0.41, "seed": 59, "pal": 4, "ca": "#450a10", "cb": "#e7d135", "cc": "#a5f3f5", "shift": -0.49, "contrast": 1.45, "cycle": 0}, 0, 1, true],
+    ["posterize", {"levels": 7, "gamma": 2.41}, 0, 1, true],
+    ["transform", {"rot": -165.1, "zoom": 3.23, "ox": -0.952, "oy": 0.976, "sx": 0, "sy": 0, "spin": 0, "wrap": 1}, 0, 1, true],
+    ["edges", {"str": 2.73, "thick": 3.88, "mode": 0}, 0, 1, true],
+    ["grain", {"amt": 0.069, "size": 1.2, "color": 0, "anim": 1}, 0, 1, true],
   ]],
-  ['Halftone', 'One ink, big dots, slow tide', [
-    ['warp', { scale: 1.1, warp: 3, oct: 4, speed: 0.15, pal: 8, contrast: 1.3 }],
-    ['halftone', { size: 16, angle: 30, mode: 0, soft: 0.1, ink: '#111111', paper: '#f1ece2' }],
-    ['grain', { amt: 0.06 }],
+  ["Universe", "Holographic dust through a wide lens", [
+    ["holo", {"scale": 4.831, "crinkle": 0.333, "bands": 0.386, "sat": 0.711, "sparkle": 0.688, "speed": 0.38, "seed": 15}, 0, 1, true],
+    ["gradmap", {"pal": 5, "ca": "#330d46", "cb": "#e7da23", "cc": "#baf2b6", "shift": -0.15, "contrast": 0.83, "cycle": 0}, 0, 1, true],
+    ["chroma", {"amount": 6.3, "radial": 0, "angle": 210}, 0, 1, true],
+    ["lens", {"distort": -0.928, "zoom": 0.638, "chroma": 0.88, "blur": 0.251, "vign": 0.707}, 0, 1, true],
+    ["grain", {"amt": 0.064, "size": 1.2, "color": 0, "anim": 1}, 0, 1, true],
   ]],
-  ['Riso print', 'Single blue ink halftone on paper', [
-    ['noise', { scale: 2.4, warp: 1.2, pal: 8, contrast: 1.3, speed: 0.1 }],
-    ['halftone', { size: 9, angle: 22, mode: 0, soft: 0.15, ink: '#2340b8', paper: '#f2ecdf' }],
-    ['grain', { amt: 0.1, size: 1.5 }],
+  ["Molten dusk", "Folding lava with a hot bloom", [
+    ["warp", {"scale": 1.6, "warp": 3.8, "oct": 6, "mixq": 0.35, "speed": 0.12, "pal": 3, "contrast": 1.15}],
+    ["glow", {"th": 0.62, "int": 0.9, "radius": 40}],
+    ["chroma", {"amount": 5, "radial": 1}],
+    ["grain", {"amt": 0.09}],
+    ["vignette", {"amt": 0.55, "size": 0.75, "soft": 0.8}],
   ]],
-  ['Crosshatch', 'Turbulence engraved in ink lines', [
-    ['turbulence', { scale: 1, detail: 6, turb: 0.9, bands: 1.2, disp: 0, speed: 0.2, pal: 8 }],
-    ['dither', { levels: 2, px: 2, mat: 4, mono: 1, dark: '#171411', light: '#efe8da' }],
+  ["Mesh gradient", "Four colors flowing into each other", [
+    ["meshgrad", {"c1": "#0d1b4d", "c2": "#6b3cff", "c3": "#ff6a88", "c4": "#ffd3a1", "distort": 0.7, "swirl": 0.5, "soft": 1.3, "speed": 0.3}],
+    ["grain", {"amt": 0.05}],
   ]],
-  ['1-bit water', 'Dithered caustics in black and white', [
-    ['caustics', { scale: 1.2, sharp: 5, speed: 0.6, pal: 8 }],
-    ['displace', { amount: 20, scale: 2 }],
-    ['dither', { levels: 2, px: 3 }],
+  ["Aurora", "Curtains of light over a night sky", [
+    ["noise", {"scale": 1.4, "oct": 4, "lac": 2, "gain": 0.5, "warp": 2.51, "ridged": 0, "angle": 90, "speed": 0.13, "seed": 0, "pal": 0, "ca": "#01040d", "cb": "#0e9c82", "cc": "#c6ffdc", "shift": 0, "contrast": 1.5, "cycle": 0}, 0, 1, true],
+    ["wave", {"amp": 35.1, "freq": 1.6, "dir": 1, "speed": 0.4}, 0, 1, true],
+    ["glow", {"th": 0.5, "int": 0.42, "radius": 55, "tint": "#9dffd6"}, 0, 1, true],
+    ["adjust", {"bri": 0, "con": 1, "sat": 1, "hue": 0, "temp": 0, "gamma": 1, "hs": 1}, 0, 1, true],
   ]],
-  ['Two-tone', 'A plasma field in chunky yellow pixels', [
-    ['plasma', { scale: 2.5, complex: 3, twist: 1.2, speed: 0.5, pal: 8 }],
-    ['dither', { levels: 2, px: 5, mono: 1, dark: '#0d0d12', light: '#e9f07a' }],
+  ["Neuro noise", "Glowing, vein-like sine networks", [
+    ["neuro", {"scale": 5, "detail": 12, "bright": 1.35, "sharp": 3.2, "speed": 0.5, "pal": 0, "ca": "#000000", "cb": "#2f47ff", "cc": "#eef2ff"}],
+    ["glow", {"th": 0.55, "int": 0.7, "radius": 30}],
+    ["vignette", {"amt": 0.4}],
   ]],
-  ['Tape memory', 'A sunset lost on VHS', [
-    ['gradient', { type: 0, angle: 90, pal: 0, ca: '#1c0b3d', cb: '#ff5d73', cc: '#ffd08a' }],
-    ['noise', { scale: 2.2, oct: 3, warp: 1.2, angle: 0, speed: 0.2, pal: 0, ca: '#000000', cb: '#3a1030', cc: '#ffb07a' }, 3, 0.45],
-    ['wave', { amp: 5, freq: 22, dir: 0, speed: 1.5 }],
-    ['chroma', { amount: 6 }],
-    ['crt', { dens: 4.5, int: 0.4, mask: 0.12, curve: 0.15, roll: 0.6 }],
-    ['grain', { amt: 0.1 }],
+  ["Grain gradient", "A soft wave dissolved in print grain", [
+    ["graingrad", {"shape": 0, "scale": 1, "soft": 0.2, "grain": 0.35, "gsize": 1.4, "speed": 0.3, "pal": 0, "ca": "#0f1636", "cb": "#e2546e", "cc": "#ffd6a0"}],
   ]],
-  ['Phosphor', 'A dot grid glowing in CRT green', [
-    ['grid', { type: 2, scale: 34, width: 0.3, rot: 0, soft: 0, speed: 0.4, pal: 0, ca: '#000000', cb: '#0b3d17', cc: '#8dff9e', shift: 0, contrast: 1, cycle: 0 }, 0, 1, true],
-    ['displace', { amount: 30, scale: 2, oct: 3, speed: 0.4, seed: 0 }, 0, 1, true],
-    ['glow', { th: 0.4, int: 1, radius: 25, tint: '#7dff95' }, 0, 1, true],
+  ["Marbled paper", "Suminagashi ink rings", [
+    ["warp", {"scale": 0.9, "warp": 3.2, "oct": 3, "bands": 6, "mixq": 0.15, "speed": 0.06, "pal": 8, "contrast": 1.1}],
+    ["invert", {"mode": 1, "th": 0.5, "soft": 0.12}],
+    ["gradmap", {"ca": "#17213f", "cb": "#5a6a8e", "cc": "#efe7d6"}],
+    ["grain", {"amt": 0.1, "size": 1.6}],
+    ["vignette", {"amt": 0.35, "color": "#6e5b3e", "soft": 1}],
   ]],
-  ['Terminal', 'Green glyph rain across the screen', [
-    ['glyphs', { scale: 26, rain: 0.8, trail: 0.45, density: 0.9, flicker: 3, speed: 0.6 }],
-    ['glow', { th: 0.35, int: 1, radius: 22, tint: '#8dffa0' }],
-    ['crt', { dens: 3.5, int: 0.3, mask: 0.12, curve: 0.08, roll: 0.3 }],
-    ['vignette', { amt: 0.5 }],
+  ["Thermal", "Heat camera, ironbow palette", [
+    ["noise", {"scale": 1.8, "oct": 5, "warp": 1.6, "speed": 0.25, "pal": 8, "contrast": 1.7}],
+    ["blur", {"radius": 8}],
+    ["gradmap", {"ca": "#0a0020", "cb": "#d0342c", "cc": "#fff1a8", "contrast": 1.3}],
+    ["posterize", {"levels": 12}],
+    ["crt", {"dens": 4, "int": 0.22, "mask": 0.08, "curve": 0, "roll": 0.3}],
+    ["grain", {"amt": 0.08}],
   ]],
-  ['LED wall', 'White lights tracing a slow plasma', [
-    ['plasma', { scale: 1.6, complex: 3, twist: 1, speed: 0.5, pal: 8 }],
-    ['led', { size: 16, round: 0.9, gap: 0.3, glow: 0.6, levels: 8 }],
-    ['glow', { th: 0.5, int: 0.7, radius: 25 }],
+  ["Simplex", "Stepped simplex contours in cool tones", [
+    ["simplex", {"scale": 1.6, "oct": 3, "steps": 7, "soft": 0.12, "warp": 0.5, "speed": 0.25, "pal": 0, "ca": "#0c1a2b", "cb": "#3f7fa8", "cc": "#e8f3f2"}],
+    ["grain", {"amt": 0.04}],
   ]],
-  ['Silk noir', 'Black silk catching cold light', [
-    ['studio', { style: 0, c1: '#050507', c2: '#1c1c24', c3: '#6c6f7d', c4: '#e7e9f0', scale: 1.1, angle: 140, distort: 0.9, soft: 0.375, sheen: 0.603, grain: 0.365, speed: 0.25, seed: 0 }, 0, 1, true],
+  ["Halftone", "One ink, big dots, slow tide", [
+    ["warp", {"scale": 1.1, "warp": 3, "oct": 4, "speed": 0.15, "pal": 8, "contrast": 1.3}],
+    ["halftone", {"size": 16, "angle": 30, "mode": 0, "soft": 0.1, "ink": "#111111", "paper": "#f1ece2"}],
+    ["grain", {"amt": 0.06}],
   ]],
-  ['Flow', 'Ribbons of blue pulled by a current', [
-    ['studio', { style: 5, c1: '#020b2a', c2: '#1d4ed8', c3: '#38bdf8', c4: '#e0f2fe', scale: 1, angle: 20, distort: 0.699, soft: 1, sheen: 0.5, grain: 0.06, speed: 0.3, seed: 0 }, 0, 1, true],
+  ["Riso print", "Single blue ink halftone on paper", [
+    ["noise", {"scale": 2.4, "warp": 1.2, "pal": 8, "contrast": 1.3, "speed": 0.1}],
+    ["halftone", {"size": 9, "angle": 22, "mode": 0, "soft": 0.15, "ink": "#2340b8", "paper": "#f2ecdf"}],
+    ["grain", {"amt": 0.1, "size": 1.5}],
   ]],
-  ['Pool', 'Tiles under clear, rippling water', [
-    ['grid', { type: 1, scale: 9, width: 0.06, pal: 0, ca: '#2ab3d6', cb: '#1b8db0', cc: '#e9fbff' }],
-    ['water', { scale: 2.4, height: 0.55, chop: 0.5, dir: 35, caustics: 0.8, glints: 0.6, depth: 0.3, clarity: 0.9, tint: '#1a9bc4', speed: 0.5 }],
-    ['vignette', { amt: 0.3, color: '#03303f' }],
+  ["Crosshatch", "Turbulence engraved in ink lines", [
+    ["turbulence", {"scale": 1, "detail": 6, "turb": 0.9, "bands": 1.2, "disp": 0, "speed": 0.2, "pal": 8}],
+    ["dither", {"levels": 2, "px": 2, "mat": 4, "mono": 1, "dark": "#171411", "light": "#efe8da"}],
   ]],
-  ['Chrome knot', 'A mirror knot on a turntable', [
-    ['studio', { style: 0, c1: '#140c2e', c2: '#6d2ff2', c3: '#f0479b', c4: '#ffc285', scale: 1, angle: 30, distort: 0.8, soft: 0.6, sheen: 0.6, grain: 0.05, speed: 0.25 }],
-    ['object3d', { shape: 3, mat: 2, color: '#f2eee8', size: 1, rotX: 20, rotY: 0, motion: 1, cycles: 1, shine: 1, rim: 0.7, shadow: 0.4 }],
+  ["1-bit water", "Dithered caustics in black and white", [
+    ["caustics", {"scale": 1.2, "sharp": 5, "speed": 0.6, "pal": 8}],
+    ["displace", {"amount": 20, "scale": 2}],
+    ["dither", {"levels": 2, "px": 3}],
+  ]],
+  ["Two-tone", "A plasma field in chunky yellow pixels", [
+    ["plasma", {"scale": 2.5, "complex": 3, "twist": 1.2, "speed": 0.5, "pal": 8}],
+    ["dither", {"levels": 2, "px": 5, "mono": 1, "dark": "#0d0d12", "light": "#e9f07a"}],
+  ]],
+  ["Tape memory", "A sunset lost on VHS", [
+    ["gradient", {"type": 0, "angle": 90, "pal": 0, "ca": "#1c0b3d", "cb": "#ff5d73", "cc": "#ffd08a"}],
+    ["noise", {"scale": 2.2, "oct": 3, "warp": 1.2, "angle": 0, "speed": 0.2, "pal": 0, "ca": "#000000", "cb": "#3a1030", "cc": "#ffb07a"}, 3, 0.45],
+    ["wave", {"amp": 5, "freq": 22, "dir": 0, "speed": 1.5}],
+    ["chroma", {"amount": 6}],
+    ["crt", {"dens": 4.5, "int": 0.4, "mask": 0.12, "curve": 0.15, "roll": 0.6}],
+    ["grain", {"amt": 0.1}],
+  ]],
+  ["Phosphor", "A dot grid glowing in CRT green", [
+    ["grid", {"type": 2, "scale": 34, "width": 0.3, "rot": 0, "soft": 0, "speed": 0.4, "pal": 0, "ca": "#000000", "cb": "#0b3d17", "cc": "#8dff9e", "shift": 0, "contrast": 1, "cycle": 0}, 0, 1, true],
+    ["displace", {"amount": 30, "scale": 2, "oct": 3, "speed": 0.4, "seed": 0}, 0, 1, true],
+    ["glow", {"th": 0.4, "int": 1, "radius": 25, "tint": "#7dff95"}, 0, 1, true],
+  ]],
+  ["Terminal", "Green glyph rain across the screen", [
+    ["glyphs", {"scale": 26, "rain": 0.8, "trail": 0.45, "density": 0.9, "flicker": 3, "speed": 0.6}],
+    ["glow", {"th": 0.35, "int": 1, "radius": 22, "tint": "#8dffa0"}],
+    ["crt", {"dens": 3.5, "int": 0.3, "mask": 0.12, "curve": 0.08, "roll": 0.3}],
+    ["vignette", {"amt": 0.5}],
+  ]],
+  ["LED wall", "White lights tracing a slow plasma", [
+    ["plasma", {"scale": 1.6, "complex": 3, "twist": 1, "speed": 0.5, "pal": 8}],
+    ["led", {"size": 16, "round": 0.9, "gap": 0.3, "glow": 0.6, "levels": 8}],
+    ["glow", {"th": 0.5, "int": 0.7, "radius": 25}],
+  ]],
+  ["Hard drive", "Interlocking arcs rippled into grainy halftone bands", [
+    ["truchet", {"scale": 5.05, "width": 0.394, "style": 1, "speed": 0.56, "seed": 9, "pal": 7, "ca": "#30270e", "cb": "#25d5c9", "cc": "#dadef4", "shift": 0.47, "contrast": 1.59, "cycle": 0}, 0, 1, true],
+    ["noise", {"scale": 3.96, "oct": 5, "lac": 3.29, "gain": 0.72, "warp": 0.4, "ridged": 0, "angle": 73, "speed": 0.22, "seed": 13, "pal": 4, "ca": "#3a4310", "cb": "#48db19", "cc": "#e3ccf2", "shift": 0.31, "contrast": 1.24, "cycle": 0}, 3, 0.65, true],
+    ["water", {"scale": 2.88, "height": 0.406, "chop": 0.887, "dir": 342.1, "caustics": 1.067, "glints": 0.384, "depth": 0.082, "clarity": 0.761, "tint": "#1a9bc4", "speed": 0.75, "seed": 75}, 0, 1, true],
+    ["wave", {"amp": 29.4, "freq": 21.61, "dir": 3, "speed": 0.63}, 0, 1, true],
+    ["halftone", {"size": 14.3, "angle": 87.6, "mode": 0, "soft": 0.82, "ink": "#320f2a", "paper": "#e0f3ed"}, 0, 1, true],
+    ["grain", {"amt": 0.105, "size": 1.2, "color": 0, "anim": 1}, 0, 1, true],
+  ]],
+  ["Silk noir", "Black silk catching cold light", [
+    ["studio", {"style": 0, "c1": "#050507", "c2": "#1c1c24", "c3": "#6c6f7d", "c4": "#e7e9f0", "scale": 1.1, "angle": 140, "distort": 0.9, "soft": 0.375, "sheen": 0.603, "grain": 0.365, "speed": 0.25, "seed": 0}, 0, 1, true],
+  ]],
+  ["Flow", "Ribbons of blue pulled by a current", [
+    ["studio", {"style": 5, "c1": "#020b2a", "c2": "#1d4ed8", "c3": "#38bdf8", "c4": "#e0f2fe", "scale": 1, "angle": 20, "distort": 0.699, "soft": 1, "sheen": 0.5, "grain": 0.06, "speed": 0.3, "seed": 0}, 0, 1, true],
+  ]],
+  ["Pool", "Tiles under clear, rippling water", [
+    ["grid", {"type": 1, "scale": 9, "width": 0.06, "pal": 0, "ca": "#2ab3d6", "cb": "#1b8db0", "cc": "#e9fbff"}],
+    ["water", {"scale": 2.4, "height": 0.55, "chop": 0.5, "dir": 35, "caustics": 0.8, "glints": 0.6, "depth": 0.3, "clarity": 0.9, "tint": "#1a9bc4", "speed": 0.5}],
+    ["vignette", {"amt": 0.3, "color": "#03303f"}],
+  ]],
+  ["Chrome knot", "A mirror knot on a turntable", [
+    ["studio", {"style": 0, "c1": "#140c2e", "c2": "#6d2ff2", "c3": "#f0479b", "c4": "#ffc285", "scale": 1, "angle": 30, "distort": 0.8, "soft": 0.6, "sheen": 0.6, "grain": 0.05, "speed": 0.25}],
+    ["object3d", {"shape": 3, "mat": 2, "color": "#f2eee8", "size": 1, "rotX": 20, "rotY": 0, "motion": 1, "cycles": 1, "shine": 1, "rim": 0.7, "shadow": 0.4}],
   ]],
 ];
 let libN = 0;
