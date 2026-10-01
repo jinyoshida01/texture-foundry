@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Texture Foundry</title>
+<meta name="description" content="Make looping textures in the browser. Stack textures and effects, animate them, and export images, GIFs and video.">
+<meta name="theme-color" content="#09090b">
+<meta property="og:title" content="Texture Foundry">
+<meta property="og:description" content="Make looping textures in the browser. Stack textures and effects, animate them, and export images, GIFs and video.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%236d2ff2'/%3E%3Cstop offset='.55' stop-color='%23f0479b'/%3E%3Cstop offset='1' stop-color='%23ffc285'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='url(%23g)'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/*CSS*/
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="brand"><span class="mark" aria-hidden="true"></span><span class="wordmark">Texture Foundry</span></div>
+  <div class="top-actions">
+    <button id="undo" class="icon-btn" type="button" title="Undo (Ctrl+Z)" aria-label="Undo"></button>
+    <button id="redo" class="icon-btn" type="button" title="Redo (Ctrl+Shift+Z)" aria-label="Redo"></button>
+    <div class="pop-anchor">
+      <button id="helpBtn" class="icon-btn" type="button" aria-label="Keyboard shortcuts" aria-expanded="false" aria-controls="helpPop" title="Shortcuts"></button>
+      <div class="pop pop-right" id="helpPop" hidden>
+        <p class="pop-title">Shortcuts</p>
+        <dl class="keys">
+          <dt><kbd>Space</kbd></dt><dd>Play or pause</dd>
+          <dt><kbd>L</kbd></dt><dd>Loop on or off</dd>
+          <dt><kbd>K</kbd></dt><dd>Show or hide the keyframe timeline</dd>
+          <dt><kbd>[</kbd> <kbd>]</kbd></dt><dd>Collapse or expand the presets or layers panel</dd>
+          <dt><kbd>Delete</kbd></dt><dd>Remove selected keyframes</dd>
+          <dt>Shift + drag</dt><dd>In the timeline, snap to keyframes and the playhead</dd>
+          <dt><kbd>E</kbd></dt><dd>Open export</dd>
+          <dt><kbd>S</kbd></dt><dd>Save the stack as a new texture</dd>
+          <dt><kbd>Ctrl</kbd> <kbd>S</kbd></dt><dd>Save changes to the selected preset</dd>
+          <dt><kbd>Ctrl</kbd> <kbd>Z</kbd></dt><dd>Undo, add Shift to redo</dd>
+          <dt>Double-click</dt><dd>A slider label resets it</dd>
+          <dt>Drop a file</dt><dd>On the canvas to add an image</dd>
+        </dl>
+      </div>
+    </div>
+    <button id="resetBtn" class="icon-btn" type="button" title="Reset to default" aria-label="Reset to default"></button>
+    <span class="divider" aria-hidden="true"></span>
+    <button id="shuffle" class="btn ghost" type="button" title="Build a random stack"></button>
+    <button id="openExport" class="btn primary" type="button"></button>
+  </div>
+</header>
+<main class="layout">
+  <aside class="panel presets-panel" id="leftPanel" aria-labelledby="presetsTitle">
+    <div class="panel-title">
+      <button id="presetsToggle" class="panel-toggle" type="button" aria-expanded="true" aria-controls="presetGrid" title="Show or hide presets ([)">
+        <h2 id="presetsTitle">Presets <span class="count" id="libCount"></span></h2>
+        <span class="pt-current" id="presetsCurrent"></span>
+        <span class="pt-caret" aria-hidden="true"></span>
+      </button>
+      <div class="lib-acts">
+        <button id="libReorder" class="icon-btn sm" type="button" title="Reorder presets" aria-label="Reorder presets" aria-pressed="false"></button>
+        <button id="libImport" class="icon-btn sm" type="button" title="Import textures from a file" aria-label="Import textures"></button>
+        <button id="libExport" class="icon-btn sm" type="button" title="Export every texture to one file" aria-label="Export all textures"></button>
+        <input id="libFile" type="file" accept=".json,application/json" hidden>
+      </div>
+    </div>
+    <div class="preset-grid" id="presetGrid"></div>
+  </aside>
+  <div class="center">
+  <section class="stage" id="stage" aria-label="Preview">
+    <div class="stage-top">
+      <div class="now-group">
+        <span class="now"><span class="live-dot" aria-hidden="true"></span><strong id="presetName"></strong><span class="edited-tag" id="editedTag" hidden>Edited</span></span>
+        <span class="edit-acts" id="editActs" hidden>
+          <button id="revertBtn" class="pill-btn" type="button" title="Throw away changes and go back to the saved preset">Revert</button>
+          <button id="saveChangesBtn" class="pill-btn strong" type="button" title="Overwrite the preset with the current stack (Ctrl+S)">Save changes</button>
+        </span>
+      </div>
+      <div class="stage-tools">
+        <div class="vtool" id="vtool" hidden role="group" aria-label="Canvas drag tool">
+          <span class="vtool-name" id="vtoolName"></span>
+          <button type="button" data-tool="move" title="Drag on the canvas to move the layer"></button>
+          <button type="button" data-tool="rotate" title="Drag on the canvas to rotate the layer (Shift rolls a 3D object)"></button>
+        </div>
+        <div class="pop-anchor">
+          <button id="ratioBtn" class="pill" type="button" aria-expanded="false" aria-controls="ratioPop"><span class="glyph-box" id="ratioGlyph"></span><span id="ratioOut"></span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 6.5l3.5 3.5 3.5-3.5"/></svg></button>
+          <div class="pop pop-right" id="ratioPop" hidden>
+            <p class="pop-title">Aspect ratio</p>
+            <div class="ratio-grid" id="ratioChips"></div>
+            <div class="field" id="customWrap" hidden>
+              <div class="pair"><input id="cw" type="number" min="16" max="8192" aria-label="Width in pixels"><span aria-hidden="true">×</span><input id="ch" type="number" min="16" max="8192" aria-label="Height in pixels"></div>
+            </div>
+            <div class="pop-sep"></div>
+            <label class="pop-row">Preview quality
+              <select id="previewQ" aria-label="Preview resolution">
+                <option value="1">Sharp</option><option value="0.75">Balanced</option><option value="0.5">Fast</option>
+              </select>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="canvas-wrap" id="canvasWrap"><canvas id="view" aria-label="Texture preview"></canvas></div>
+    <div class="timeline">
+      <button id="play" class="play-btn" type="button"></button>
+      <button id="rewind" class="icon-btn" type="button" title="Back to start" aria-label="Back to start"></button>
+      <span id="clock" class="clock" aria-live="off"></span>
+      <div class="scrub" id="scrubWrap">
+        <div class="scrub-track" aria-hidden="true"><div class="scrub-fill" id="scrubFill"></div></div>
+        <input type="range" id="scrub" min="0" max="1" step="0.001" value="0" aria-label="Position in loop">
+      </div>
+      <div class="pop-anchor">
+        <button id="loopBtn" class="loop-btn" type="button" aria-expanded="false" aria-controls="loopPop"></button>
+        <div class="pop pop-up pop-right" id="loopPop" hidden>
+          <p class="pop-title">Loop</p>
+          <div id="loopOpts" class="opts"></div>
+        </div>
+      </div>
+      <button id="kfBtn" class="loop-btn kf-toggle" type="button" aria-pressed="false" aria-controls="kfPanel" title="Keyframe timeline (K)"></button>
+      <label class="speed" title="Double-click the value to reset">
+        <span class="sr">Speed</span>
+        <input type="range" id="speed" min="0" max="3" step="0.01" value="1">
+        <output id="speedOut"></output>
+      </label>
+    </div>
+  </section>
+  <section class="kf-panel" id="kfPanel" hidden aria-label="Keyframes">
+    <div class="kf-resize" id="kfResize" role="separator" aria-orientation="horizontal" aria-label="Resize keyframe panel" tabindex="0" title="Drag to resize"></div>
+    <div class="kf-head">
+      <strong class="kf-title">Keyframes</strong>
+      <span class="kf-time" id="kfTime"></span>
+      <div class="kf-head-acts">
+        <span class="kf-one" id="kfOne" hidden>
+          <label>Time <input id="kfKT" type="number" step="0.1" min="0" class="kf-num" aria-label="Keyframe time in seconds">s</label>
+          <label>Value <input id="kfKV" type="number" class="kf-num" aria-label="Keyframe value"></label>
+        </span>
+        <label class="kf-ease" id="kfEaseWrap" hidden>Ease <select id="kfEase"></select></label>
+        <button id="kfCurveBtn" class="btn ghost sm" type="button" hidden title="Edit the easing curve">Curve</button>
+        <button id="kfDel" class="btn ghost sm" type="button" hidden>Delete key</button>
+        <button id="kfClose" class="icon-btn sm" type="button" aria-label="Close keyframes" title="Close (K)"></button>
+      </div>
+    </div>
+    <div class="kf-main">
+      <div class="kf-body" id="kfBody">
+        <div class="kf-row kf-ruler-row"><div class="kf-lab kf-lab-head">Layer and property</div><div class="kf-track kf-ruler" id="kfRuler"></div></div>
+        <div id="kfRows"></div>
+      </div>
+      <div class="kf-overlay" aria-hidden="true"><div class="kf-snap" id="kfSnap" hidden></div><div class="kf-playhead" id="kfPlayhead"></div></div>
+    </div>
+  </section>
+  </div>
+  <aside class="panel layers-panel" id="rightPanel" aria-labelledby="layersTitle">
+    <div class="panel-title">
+      <button id="layersToggle" class="panel-toggle" type="button" aria-expanded="true" aria-controls="viewLayers" title="Show or hide layers (])">
+        <span class="pt-caret" aria-hidden="true"></span>
+        <h2 id="layersTitle">Layers <span class="count" id="layerCount"></span></h2>
+      </button>
+      <button id="addBtn" class="btn outline sm" type="button" aria-expanded="false" aria-controls="addMenu"></button>
+    </div>
+    <p class="hint">Layers render bottom to top. Effects reshape everything beneath them.</p>
+    <div class="view" id="viewLayers">
+      <div id="addMenu" class="add-menu" hidden role="dialog" aria-label="Add a layer"></div>
+      <ol id="stack" class="stack"></ol>
+    </div>
+  </aside>
+  <div class="resizer" id="leftResizer" role="separator" aria-orientation="vertical" aria-controls="leftPanel" aria-label="Resize presets panel" tabindex="0" title="Drag to resize, double-click to reset"></div>
+  <div class="resizer" id="rightResizer" role="separator" aria-orientation="vertical" aria-controls="rightPanel" aria-label="Resize layers panel" tabindex="0" title="Drag to resize, double-click to reset"></div>
+</main>
+<footer class="foot">
+  <span>Created by Jin Yoshida</span>
+  <nav class="foot-links" aria-label="Jin Yoshida">
+    <a href="https://github.com/jinyoshida01" target="_blank" rel="noopener noreferrer">GitHub</a>
+    <a href="https://www.jinyoshida.me/" target="_blank" rel="noopener noreferrer">Portfolio</a>
+  </nav>
+</footer>
+
+<div id="toast" class="toast" role="status" hidden></div>
+<div class="kf-curve" id="kfCurve" hidden role="dialog" aria-label="Easing curve">
+  <div class="cv-head"><b>Easing curve</b><button id="cvClose" class="icon-btn sm" type="button" aria-label="Close curve editor"></button></div>
+  <svg id="cvSvg" viewBox="0 0 240 250" width="240" height="250" aria-label="Drag the two handles to shape the curve">
+    <rect x="20" y="75" width="200" height="100" class="cv-box"/>
+    <line x1="20" y1="125" x2="220" y2="125" class="cv-grid"/><line x1="120" y1="75" x2="120" y2="175" class="cv-grid"/>
+    <line x1="20" y1="175" x2="220" y2="75" class="cv-diag"/>
+    <line id="cvL1" x1="20" y1="175" class="cv-arm"/><line id="cvL2" x1="220" y1="75" class="cv-arm"/>
+    <path id="cvPath" class="cv-curve"/>
+    <circle cx="20" cy="175" r="3.5" class="cv-end"/><circle cx="220" cy="75" r="3.5" class="cv-end"/>
+    <circle id="cvH1" r="7" class="cv-h"/><circle id="cvH2" r="7" class="cv-h"/>
+  </svg>
+  <div class="cv-nums">
+    <label>x1 <input id="cvX1" type="number" step="0.01" min="0" max="1"></label><label>y1 <input id="cvY1" type="number" step="0.01" min="-0.75" max="1.75"></label>
+    <label>x2 <input id="cvX2" type="number" step="0.01" min="0" max="1"></label><label>y2 <input id="cvY2" type="number" step="0.01" min="-0.75" max="1.75"></label>
+  </div>
+  <code class="cv-css" id="cvCss"></code>
+  <div class="cv-presets" id="cvPresets"></div>
+  <p class="cv-foot">Applies to every selected key, from that key to the next one. Values above 1 or below 0 overshoot.</p>
+</div>
+<dialog id="resetDlg" class="dlg dlg-sm" aria-labelledby="resetTitle">
+  <div class="dlg-body">
+    <h2 id="resetTitle">Reset everything?</h2>
+    <p class="note">This brings back the built-in textures, the default stack and all default settings, as if you were opening the page for the first time. Textures you saved or imported will be removed, so export them first if you want to keep them.</p>
+  </div>
+  <div class="dlg-foot dlg-row">
+    <button id="resetCancel" class="btn outline" type="button">Cancel</button>
+    <button id="resetGo" class="btn danger-btn" type="button">Reset</button>
+  </div>
+</dialog>
+<dialog id="exportDlg" class="dlg" aria-labelledby="dlgTitle">
+  <div class="dlg-head">
+    <h2 id="dlgTitle">Export</h2>
+    <button id="dlgClose" class="icon-btn" type="button" aria-label="Close"></button>
+  </div>
+  <div class="dlg-body">
+    <div class="format-grid" id="formatGrid" role="group" aria-label="Format"></div>
+    <div class="field" id="sizeField"><label class="flabel" for="sizeSel">Resolution</label><select id="sizeSel"></select></div>
+    <p class="note" id="customNote" hidden></p>
+    <div class="opts" id="formatOpts"></div>
+    <p class="note" id="loopNote"></p>
+    <p class="note warn-note" id="gifNote" hidden>That is a long GIF. It will take a while to encode and the file will be large; MP4 or WebM of the same loop is far smaller.</p>
+  </div>
+  <div class="dlg-foot">
+    <p id="summary" class="summary"></p>
+    <button id="exportBtn" class="btn primary cta" type="button"><span class="cta-fill" id="ctaFill"></span><span class="cta-label" id="ctaLabel">Export PNG</span></button>
+    <p id="status" class="status" role="status"></p>
+  </div>
+</dialog>
+<script src="THREE_SRC"></script>
+<script>
+const MUX_SRC = { mp4: 'MUX_MP4_SRC', webm: 'MUX_WEBM_SRC' };
+/*JS*/
+</script>
+</body>
+</html>
