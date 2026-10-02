@@ -304,6 +304,11 @@ const BUILTIN = [
     ["studio", {"style": 0, "c1": "#140c2e", "c2": "#6d2ff2", "c3": "#f0479b", "c4": "#ffc285", "scale": 1, "angle": 30, "distort": 0.8, "soft": 0.6, "sheen": 0.6, "grain": 0.05, "speed": 0.25}],
     ["object3d", {"shape": 3, "mat": 2, "color": "#f2eee8", "size": 1, "rotX": 20, "rotY": 0, "motion": 1, "cycles": 1, "shine": 1, "rim": 0.7, "shadow": 0.4}],
   ]],
+  ["Topography", "Sage terrain traced with fine elevation contours", [
+    ["simplex", {"scale": 1.6, "oct": 3, "steps": 12, "soft": 0.018, "warp": 0.45, "speed": 0.18, "seed": 17, "pal": 0, "ca": "#234f4b", "cb": "#95af87", "cc": "#efe5c9", "contrast": 1.2, "shift": 0, "cycle": 0}, 0, 1, true],
+    ["edges", {"str": 4.2, "thick": 0.85, "mode": 1}, 2, 0.62, true],
+    ["grain", {"amt": 0.035, "size": 1.2, "color": 0, "anim": 0}, 0, 1, true],
+  ]],
 ];
 let libN = 0;
 const libId = () => 'tx' + Date.now().toString(36) + (libN++).toString(36);
